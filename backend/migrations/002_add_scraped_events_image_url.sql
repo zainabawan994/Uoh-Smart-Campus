@@ -1,0 +1,4 @@
+BEGIN;
+ALTER TABLE public.scraped_events
+    ADD COLUMN IF NOT EXISTS image_url VARCHAR(1000) NULL;
+COMMIT;

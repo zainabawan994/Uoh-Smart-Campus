@@ -1,0 +1,31 @@
+# Render Blueprint: New > Blueprint > pick this repository. Creates the web service, database and disk.
+# A persistent disk needs a paid instance type on Render; check current pricing before applying.
+services:
+  - type: web
+    name: uoh-smart-campus
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
+    disk:
+      name: uploads
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: uoh-campus-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: ANTHROPIC_API_KEY
+        sync: false   # paste it in the dashboard
+      - key: ADMIN_PASSWORD     # first admin (A00-0001) is created from this on first start
+        sync: false
+
+databases:
+  - name: uoh-campus-db
+    databaseName: uoh_campus

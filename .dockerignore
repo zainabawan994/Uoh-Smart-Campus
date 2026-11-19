@@ -1,0 +1,10 @@
+**/.env
+**/.env.local
+**/__pycache__
+backend/venv
+backend/uploads
+frontend/node_modules
+frontend/dist
+.claude
+.vscode
+.git
